@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import s from "./App.module.css";
+import {Button} from "./components/ButtonInc";
+import {ButtonReset} from "./components/ButtonReset";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [num, setNum] = useState(0);
+
+    const increment = () => {
+        setNum(num + 1);
+    }
+
+    const reset = () => {
+        setNum(0)
+    }
+
+    return (
+        <div className={s.main}>
+            <Button increment={increment} result={num}/>
+            <ButtonReset reset={reset} result={num}/>
+        </div>
+    );
 }
 
 export default App;
