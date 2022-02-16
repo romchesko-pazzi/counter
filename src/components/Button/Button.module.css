@@ -1,0 +1,10 @@
+.butt {
+    width: 100px;
+    height: 50px;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+.mainButton {
+    flex: 0 1 50%;
+}
