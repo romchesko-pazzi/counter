@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import './App.css';
 import s from "./App.module.css";
-import {Button} from "./components/ButtonInc";
-import {ButtonReset} from "./components/ButtonReset";
+import {Button} from "./components/Button/Button";
+import {Display} from "./components/Display";
 
 function App() {
 
@@ -13,13 +12,14 @@ function App() {
     }
 
     const reset = () => {
-        setNum(0)
+        setNum(0);
     }
 
     return (
         <div className={s.main}>
-            <Button increment={increment} result={num}/>
-            <ButtonReset reset={reset} result={num}/>
+            <Display result={num}/>
+            <Button name={"INC"} callBack={increment} disabled={num > 4} result={num}/>
+            <Button name={"RESET"} callBack={reset} disabled={num === 0} result={num}/>
         </div>
     );
 }
