@@ -1,8 +1,15 @@
-.main {
+
+
+
+.counter {
     display: flex;
     flex-wrap: wrap;
     background: #61dafb;
     width: 500px;
     margin: 0 auto;
     text-align: center;
+}
+
+.settings {
+
 }

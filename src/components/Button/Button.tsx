@@ -3,7 +3,7 @@ import s from "./Button.module.css"
 
 type PropsType = {
     callBack: () => void,
-    result: number,
+    result?: number,
     name: string,
     disabled: boolean,
 }
