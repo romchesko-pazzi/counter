@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./App.module.css";
 import {Button} from "./components/Button/Button";
 import {Display} from "./components/Display";
@@ -7,49 +7,70 @@ import {SettingsDisplay} from "./components/SettingsDisplay/SettingsDisplay";
 function App() {
 
     const [num, setNum] = useState(0);
+    const [startValue, setStartValue] = useState(0);
+    const [title, setTitle] = useState("Set the values");
+    const [maxValue, setMaxValue] = useState(0);
+    const [disable, setDisable] = useState<boolean>(true);
+    const [limit, setLimit] = useState(false);
+    // useEffect(() => {
+    //     let itemAsString = localStorage.getItem("key1");
+    //     if (itemAsString) {
+    //         setNum(JSON.parse(itemAsString));
+    //     }
+    // }, []);
+    //
+    // useEffect(() => {
+    //     localStorage.setItem("key1", JSON.stringify(num));
+    // }, [num]);
+
+
+    const setValues = (start: number, max: number) => {
+        if (start < 0 || max < 0 || start > max || start === max) {
+            setTitle("Incorrect value");
+            setDisable(true);
+            return
+        }
+        setDisable(false);
+        setStartValue(start);
+        setMaxValue(max);
+        setNum(start);
+    }
 
     const increment = () => {
+        if (num === maxValue - 1) {
+            setLimit(true);
+            setDisable(true);
+        }
         setNum(num + 1);
     }
-
     const reset = () => {
-        setNum(0);
+        setNum(startValue);
+        setDisable(false);
+        setLimit(false);
     }
 
-    const setToLocalStorageHandler = () => {
-        localStorage.setItem("counterKey", JSON.stringify(num));
-        localStorage.setItem("counterKey1", JSON.stringify(num + 2));
-        localStorage.setItem("counterKey2", JSON.stringify(num + 4));
-    }
-
-    const getFromLocalStorageHandler = () => {
-        let valueAsString = localStorage.getItem("counterKey");
-        if (valueAsString) {
-            let valueAsNumber = JSON.parse(valueAsString);
-            setNum(valueAsNumber);
-        }
-    }
-
-    const clearLocalStorageHandler = () => {
-        localStorage.clear();
-        setNum(0);
-    }
-
+    console.log(num, startValue, maxValue);
     return (
-        <div className={s.main}>
+        <>
             <div className={s.counter}>
-                <Display result={num}/>
-                <Button name={"inc"} callBack={increment} disabled={num > 40} result={num}/>
-                <Button name={"reset"} callBack={reset} disabled={num === 0} result={num}/>
-                <Button callBack={setToLocalStorageHandler} name={"setToLocalStorage"} disabled={false}/>
-                <Button callBack={getFromLocalStorageHandler} name={"getFromLocalStorage"} disabled={false}/>
-                <Button callBack={clearLocalStorageHandler} name={"clearLocalStorage"} disabled={false}/>
+                <Display
+                    title={title}
+                    limit={limit}
+                    num={num}
+                    startValue={startValue}
+                    maxValue={maxValue}/>
+                <Button name={"inc"}
+                        callBack={increment}
+                        disabled={disable}/>
+                <Button name={"reset"}
+                        callBack={reset}
+                        disabled={num === startValue}/>
             </div>
-            {/*<div className={s.settings}>*/}
-            {/*    <SettingsDisplay/>*/}
-            {/*    <Button callBack={() => setNum} result={5} name={"set"} disabled={true}/>*/}
-            {/*</div>*/}
-        </div>
+            <div className={s.settings}>
+                <SettingsDisplay callBack={(start, max) => setValues(start, max)}/>
+                {/*<Button callBack={setValue} name={"set"} disabled={false}/>*/}
+            </div>
+        </>
     );
 }
 
