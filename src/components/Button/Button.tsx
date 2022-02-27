@@ -3,12 +3,11 @@ import s from "./Button.module.css"
 
 type PropsType = {
     callBack: () => void,
-    result?: number,
     name: string,
     disabled: boolean,
 }
 
-export const Button: React.FC<PropsType> = ({callBack, result, name, disabled}) => {
+export const Button: React.FC<PropsType> = ({callBack, name, disabled}) => {
 
     const onClickHanlder = () => {
         callBack()
