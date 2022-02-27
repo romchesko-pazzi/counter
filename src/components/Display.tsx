@@ -2,14 +2,18 @@ import React from "react";
 import s from "./Display.module.css";
 
 type PropsType = {
-    result: number,
+    title: string,
+    num: number,
+    limit: boolean,
+    maxValue: number,
+    startValue: number,
 }
-export const Display: React.FC<PropsType> = ({result}) => {
+export const Display = (props: PropsType) => {
+    const {title, num, maxValue, startValue, limit} = props;
+
     return (
         <div className={s.main}>
-            <div className={result > 4 ? s.limit : ""}>
-                {result}
-            </div>
+            <span className={limit ? s.limit : ""}>{maxValue === 0 ? title : num}</span>
         </div>
     )
 }
