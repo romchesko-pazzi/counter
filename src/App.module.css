@@ -1,15 +1,28 @@
+.main {
+    background-color: #a6d6ff;
+    height: 100vh;
+    width: 100vw;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .counter {
     display: flex;
+    height: 200px;
     flex-wrap: wrap;
-    background: #61dafb;
-    width: 500px;
-    margin: 0 auto;
+    background: #001dff;
+    width: 400px;
     text-align: center;
+    margin-right: 10px;
 }
 
 .settings {
-    background: #b54ae0;
-    width: 500px;
-    margin: 50px auto;
+    display: flex;
+    background: #001dff;
+    height: 200px;
+    width: 400px;
     text-align: center;
+    margin-left: 10px;
 }
