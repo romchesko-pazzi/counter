@@ -1,0 +1,25 @@
+.button {
+    flex: 0 1 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.firstInput {
+    flex: 0 1 50%;
+}
+
+.secondInput {
+    flex: 0 1 50%;
+
+}
