@@ -6,7 +6,6 @@ export type SettingsDisplayPropsType = {
     callBack: (start: number, max: number) => void
 }
 
-
 export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     const {callBack} = props;
 
@@ -24,16 +23,18 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
         callBack(start, max);
     }
     return (
-        <div className={s.inputValues}>
-            <div>
+        <div className={s.main}>
+            <div className={s.firstInput}>
                 Max value : <input type={"number"}
                                    onChange={onChangeHandlerMax}/>
             </div>
-            <div>
+            <span className={s.secondInput}>
                 Start value : <input type={"number"}
                                      onChange={onChangeHandlerStart}/>
+            </span>
+            <div className={s.button}>
+                <Button callBack={() => setBothValues(startValue, maxValue)} name={"set"} disabled={false}/>
             </div>
-            <Button callBack={() => setBothValues(startValue, maxValue)} name={"set"} disabled={false}/>
         </div>
     );
 };
