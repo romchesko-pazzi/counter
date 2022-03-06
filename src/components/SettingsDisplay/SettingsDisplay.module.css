@@ -19,7 +19,10 @@ input {
     flex: 0 1 50%;
 }
 
+.inputError {
+    background-color: red;
+}
+
 .secondInput {
     flex: 0 1 50%;
-
 }
