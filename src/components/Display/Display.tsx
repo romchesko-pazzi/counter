@@ -9,7 +9,6 @@ type DisplayPropsType = {
 export const Display = (props: DisplayPropsType) => {
     const {counterValue, maxValue} = props;
 
-
     return (
         <div className={s.main}>
             <span
