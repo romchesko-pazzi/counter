@@ -15,7 +15,7 @@ export const Button: React.FC<PropsType> = ({callBack, name, disabled}) => {
 
     return (
         <div className={s.mainButton}>
-            <button className={s.butt} disabled={disabled}
+            <button className={disabled ? s.buttError : s.butt} disabled={disabled}
                     onClick={onClickHanlder}>{name}</button>
         </div>
     );
