@@ -6,75 +6,82 @@ import {SettingsDisplay} from "./components/SettingsDisplay/SettingsDisplay";
 
 function App() {
 
-    const [num, setNum] = useState<number>(0);
+    const [counterValue, setCounterValue] = useState<number | "Incorrect value!">(0);
     const [startValue, setStartValue] = useState<number>(0);
-    const [title, setTitle] = useState<string>("Set the values");
-    const [maxValue, setMaxValue] = useState<number>(0);
-    const [disable, setDisable] = useState<boolean>(true);
-    const [limit, setLimit] = useState<boolean>(false);
-    const [titleState, setTitleState] = useState<boolean>(true)
-    const [incorrect, setIncorrect] = useState<boolean>(false);
+    const [maxValue, setMaxValue] = useState<number>(1);
+    const [disableForInc, setDisableForInc] = useState<boolean>(true);
+    const [disableForReset, setDisableForReset] = useState<boolean>(true);
+    const [disableForSet, setDisableForSet] = useState<boolean>(false);
+
     // useEffect(() => {
-    //     let itemAsString = localStorage.getItem("key1");
-    //     if (itemAsString) {
-    //         setNum(JSON.parse(itemAsString));
+    //     let x = localStorage.getItem("count");
+    //     if (x) {
+    //         setValue(Number(x));
     //     }
-    // }, []);
+    // }, [])
     //
     // useEffect(() => {
-    //     localStorage.setItem("key1", JSON.stringify(num));
-    // }, [num]);
+    //     localStorage.setItem("count", value.toString());
+    // }, [value]);
 
 
     const setValues = (start: number, max: number) => {
-        if (start < 0 || max < 0 || start > max || start === max) {
-            setTitle("Incorrect value");
-            setDisable(true);
-            setTitleState(true);
-            setIncorrect(true);
-            setLimit(true);
-            return
+        if (start < max && start >= 0 && max > 0) {
+            setDisableForInc(false);
+            setCounterValue(start);
+            setStartValue(start);
+            setMaxValue(max);
+        } else {
+            setCounterValue("Incorrect value!");
+            setDisableForInc(true);
+            setDisableForSet(true)
         }
-        setTitleState(false);
-        setDisable(false);
-        setStartValue(start);
-        setMaxValue(max);
-        setNum(start);
     }
 
     const increment = () => {
-        if (num === maxValue - 1) {
-            setLimit(true);
-            setDisable(true);
+        if (counterValue === maxValue - 1) {
+            setDisableForInc(true);
+            setDisableForReset(false);
         }
-        setNum(num + 1);
+        if (typeof counterValue === "number") {
+            setCounterValue(counterValue + 1);
+            setDisableForReset(false)
+        }
     }
     const reset = () => {
-        setNum(startValue);
-        setDisable(false);
-        setLimit(false);
+        setCounterValue(startValue);
+        setDisableForReset(true);
+        setDisableForInc(false);
     }
+
+    // const callBackSetError = (settedValue: number) => {
+    //     if (settedValue < 0) {
+    //         setValue("Incorrect value!");
+    //     } else {
+    //         setValue(0);
+    //     }
+    // }
 
     return (
         <div className={s.main}>
             <div className={s.counter}>
                 <Display
-                    titleState={titleState}
-                    title={title}
-                    limit={limit}
-                    incorrect={incorrect}
-                    num={num}
-                    startValue={startValue}
-                    maxValue={maxValue}/>
+                    counterValue={counterValue}
+                    maxValue={maxValue}
+                />
                 <Button name={"inc"}
                         callBack={increment}
-                        disabled={disable}/>
+                        disabled={disableForInc}/>
                 <Button name={"reset"}
                         callBack={reset}
-                        disabled={num === startValue}/>
+                        disabled={disableForReset}/>
             </div>
             <div className={s.settings}>
-                <SettingsDisplay callBack={(start, max) => setValues(start, max)}/>
+                <SettingsDisplay
+                    callBack={(start, max) => setValues(start, max)}
+                    disableForSet={disableForSet}
+                    // callBackSetError={callBackSetError}
+                />
             </div>
         </div>
     );
