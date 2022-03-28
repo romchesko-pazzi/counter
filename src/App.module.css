@@ -2,27 +2,4 @@
     background-color: #a6d6ff;
     height: 100vh;
     width: 100vw;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.counter {
-    display: flex;
-    height: 200px;
-    flex-wrap: wrap;
-    background: #001dff;
-    width: 400px;
-    text-align: center;
-    margin-right: 10px;
-}
-
-.settings {
-    display: flex;
-    background: #001dff;
-    height: 200px;
-    width: 400px;
-    text-align: center;
-    margin-left: 10px;
 }
