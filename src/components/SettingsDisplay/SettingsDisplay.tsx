@@ -46,10 +46,10 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     return (
         <div className={s.main}>
             <div className={s.firstInput}>
-                Max value : <input value={maxValue} type={"number"} onChange={onChangeHandlerMax}/>
+                Max value : <input value={maxValue} type={"number"} min={0} onChange={onChangeHandlerMax}/>
             </div>
             <span className={s.secondInput}>
-                Start value : <input value={startValue} type={"number"} onChange={onChangeHandlerStart}/>
+                Start value : <input value={startValue} type={"number"} min={0} onChange={onChangeHandlerStart}/>
             </span>
             <div className={s.button}>
                 <Button callBack={() => setBothValues(startValue, maxValue)} name={"set"}
