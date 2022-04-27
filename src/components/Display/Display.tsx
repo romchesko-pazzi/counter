@@ -8,11 +8,10 @@ type DisplayPropsType = {
 
 export const Display = (props: DisplayPropsType) => {
     const {counterValue, maxValue} = props;
-
     return (
         <div className={s.main}>
-            <span
-                className={counterValue === "Incorrect value!" || counterValue === maxValue ? s.limit : ""}>{counterValue}
+            <span className={counterValue === "Incorrect value!" || counterValue === maxValue ? s.limit : ""}>
+                {counterValue}
             </span>
         </div>
     )

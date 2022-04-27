@@ -13,22 +13,22 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     const [startValue, setStartValue] = useState(0);
     const [maxValue, setMaxValue] = useState(5);
 
-    useEffect(() => {
-        let startValue = localStorage.getItem("startValue");
-        let maxValue = localStorage.getItem("maxValue");
-        if (maxValue && startValue) {
-            setStartValue(Number(startValue));
-            setMaxValue(Number(maxValue));
-        }
-    }, []);
+    // useEffect(() => {
+    //     let startValue = localStorage.getItem("startValue");
+    //     let maxValue = localStorage.getItem("maxValue");
+    //     if (maxValue && startValue) {
+    //         setStartValue(Number(startValue));
+    //         setMaxValue(Number(maxValue));
+    //     }
+    // }, []);
 
-    useEffect(() => {
-        localStorage.setItem("startValue", startValue.toString());
-    }, [startValue]);
-
-    useEffect(() => {
-        localStorage.setItem("maxValue", maxValue.toString());
-    }, [maxValue]);
+    // useEffect(() => {
+    //     localStorage.setItem("startValue", startValue.toString());
+    // }, [startValue]);
+    //
+    // useEffect(() => {
+    //     localStorage.setItem("maxValue", maxValue.toString());
+    // }, [maxValue]);
 
 
     const onChangeHandlerStart = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,10 +46,10 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     return (
         <div className={s.main}>
             <div className={s.firstInput}>
-                Max value : <input value={maxValue} type={"number"} min={0} onChange={onChangeHandlerMax}/>
+                Max value : <input value={maxValue} min={0} onChange={onChangeHandlerMax}/>
             </div>
             <span className={s.secondInput}>
-                Start value : <input value={startValue} type={"number"} min={0} onChange={onChangeHandlerStart}/>
+                Start value : <input value={startValue} min={0} onChange={onChangeHandlerStart}/>
             </span>
             <div className={s.button}>
                 <Button callBack={() => setBothValues(startValue, maxValue)} name={"set"}
