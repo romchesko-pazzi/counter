@@ -52,8 +52,7 @@ export const Counter = () => {
             dispatch(setDisableForResetAC(false));
         }
         if (typeof counterValue === "number") {
-
-            dispatch(setCounterValueAC(counterValue+1));
+            dispatch(setCounterValueAC(counterValue + 1));
             dispatch(setDisableForResetAC(false));
         }
     }
