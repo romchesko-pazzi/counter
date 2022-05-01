@@ -6,7 +6,7 @@ import {SettingsDisplay} from "../components/SettingsDisplay/SettingsDisplay";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {
-    ActionType,
+    ActionType, incValueAC,
     selectAll,
     setCounterValueAC,
     setDisableForIncAC,
@@ -52,7 +52,8 @@ export const Counter = () => {
             dispatch(setDisableForResetAC(false));
         }
         if (typeof counterValue === "number") {
-            dispatch(setCounterValueAC(counterValue + 1));
+            dispatch(setCounterValueAC(counterValue));
+            dispatch(incValueAC(counterValue));
             dispatch(setDisableForResetAC(false));
         }
     }

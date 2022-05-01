@@ -6,6 +6,7 @@ export enum ACTIONS_TYPE {
     SET_COUNTER_VALUE = "SET_COUNTER_VALUE",
     SET_START_VALUE = "SET_START_VALUE",
     SET_MAX_VALUE = "SET_MAX_VALUE",
+    INC_VALUE = "INC_VALUE",
 }
 
 export type ActionType =
@@ -13,13 +14,15 @@ export type ActionType =
     | SetCounterValueType
     | SetStartValueType
     | SetMaxValueType
-    | SetDisableForResetType;
+    | SetDisableForResetType
+    | IncValueType;
 
 type SetDisableForIncType = ReturnType<typeof setDisableForIncAC>
 type SetDisableForResetType = ReturnType<typeof setDisableForResetAC>
 type SetCounterValueType = ReturnType<typeof setCounterValueAC>
 type SetStartValueType = ReturnType<typeof setStartValueAC>
 type SetMaxValueType = ReturnType<typeof setMaxValueAC>
+type IncValueType = ReturnType<typeof incValueAC>
 
 // type IncValueType = {
 //     type:ACTIONS_TYPE.INC_VALUE
@@ -78,12 +81,24 @@ export const counterReducer = (state = initialState, action: ActionType): Initia
         case ACTIONS_TYPE.SET_COUNTER_VALUE: {
             return {...state, counterValue: action.payload.startValue}
         }
+        case ACTIONS_TYPE.INC_VALUE: {
+            return {
+                ...state,
+                counterValue: action.payload.value + 1
+            }
+        }
         default: {
             return state
         }
     }
 }
 
+export const incValueAC = (value: number) => {
+    return {
+        type: ACTIONS_TYPE.INC_VALUE,
+        payload: {value}
+    } as const
+}
 
 export const setCounterValueAC = (startValue: number | "Incorrect value!") => {
     return {
