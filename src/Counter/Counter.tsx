@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from "./Counter.module.css";
 import {Button} from "../components/Button/Button"
 import {Display} from "../components/Display/Display";
@@ -6,62 +6,54 @@ import {SettingsDisplay} from "../components/SettingsDisplay/SettingsDisplay";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch} from "redux";
 import {
-    ActionType, incValueAC,
+    ActionType, getValueFromLocalStorageThunkCreator, incValue, incValuesThunkCreator,
     selectAll,
-    setCounterValueAC,
-    setDisableForIncAC,
-    setDisableForResetAC,
-    setMaxValueAC,
-    setStartValueAC
+    setCounterValue,
+    setDisableForInc,
+    setDisableForReset,
+    setMaxValue,
+    setStartValue,
 } from "../state/counterReducer";
 
-export const Counter = () => {
-
-
-    const dispatch = useDispatch<Dispatch<ActionType>>()
+export const Counter = React.memo(() => {
+    // const dispatch = useDispatch<Dispatch<ActionType>>();
+    const dispatch = useDispatch();
     const {counterValue, maxValue, startValue, disableForInc, disableForReset} = useSelector(selectAll);
 
+    useEffect(() => {
+        dispatch(getValueFromLocalStorageThunkCreator())
+    }, []);
 
-    // useEffect(() => {
-    //     let gettedValue = localStorage.getItem("startValueApp");
-    //     if (gettedValue) {
-    //         setCounterValue(Number(gettedValue));
-    //     }
-    // }, []);
-    //
-    // useEffect(() => {
-    //     localStorage.setItem("startValueApp", startValue.toString());
-    //     setDisableForInc(false);
-    // }, [startValue]);
+
 
     const setValues = (start: number, max: number) => {
         if (start < max && Number.isInteger(start) && Number.isInteger(max)) {
-            dispatch(setDisableForIncAC(false));
-            dispatch(setStartValueAC(start));
-            dispatch(setCounterValueAC(start));
-            dispatch(setMaxValueAC(max));
+            dispatch(setDisableForInc(false));
+            dispatch(setStartValue(start));
+            dispatch(setCounterValue(start));
+            dispatch(setMaxValue(max));
         } else {
-            dispatch(setCounterValueAC("Incorrect value!"));
-            dispatch(setDisableForIncAC(true));
+            dispatch(setCounterValue("Incorrect value!"));
+            dispatch(setDisableForInc(true));
         }
     }
 
     const increment = () => {
         if (counterValue === maxValue - 1) {
-            dispatch(setDisableForIncAC(true));
-            dispatch(setDisableForResetAC(false));
+            dispatch(setDisableForInc(true));
+            dispatch(setDisableForReset(false));
         }
         if (typeof counterValue === "number") {
-            dispatch(setCounterValueAC(counterValue));
-            dispatch(incValueAC(counterValue));
-            dispatch(setDisableForResetAC(false));
+            dispatch(setCounterValue(counterValue));
+            dispatch(incValuesThunkCreator(counterValue));
+            dispatch(setDisableForReset(false));
         }
     }
 
     const reset = () => {
-        dispatch(setCounterValueAC(startValue));
-        dispatch(setDisableForResetAC(true));
-        dispatch(setDisableForIncAC(false));
+        dispatch(setCounterValue(startValue));
+        dispatch(setDisableForReset(true));
+        dispatch(setDisableForInc(false));
     }
     return (
         <div className={s.main}>
@@ -75,4 +67,4 @@ export const Counter = () => {
             </div>
         </div>
     );
-};
+});

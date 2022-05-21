@@ -7,11 +7,8 @@ type PropsType = {
     disabled: boolean,
 }
 
-export const Button: React.FC<PropsType> = ({callBack, name, disabled}) => {
-
-    const onClickHanlder = () => {
-        callBack()
-    }
+export const Button: React.FC<PropsType> = React.memo(({callBack, name, disabled}) => {
+    const onClickHanlder = () => callBack()
 
     return (
         <div className={s.mainButton}>
@@ -19,4 +16,4 @@ export const Button: React.FC<PropsType> = ({callBack, name, disabled}) => {
                     onClick={onClickHanlder}>{name}</button>
         </div>
     );
-};
+});

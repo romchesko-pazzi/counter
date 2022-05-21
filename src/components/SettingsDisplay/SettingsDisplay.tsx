@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import s from "./SettingsDisplay.module.css"
 import {Button} from "../Button/Button";
 
@@ -6,8 +6,7 @@ export type SettingsDisplayPropsType = {
     callBack: (start: number, max: number) => void
 }
 
-export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
-
+export const SettingsDisplay: React.FC<SettingsDisplayPropsType> = React.memo((props) => {
     const {callBack} = props;
 
     const [startValue, setStartValue] = useState(0);
@@ -21,7 +20,6 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     //         setMaxValue(Number(maxValue));
     //     }
     // }, []);
-
     // useEffect(() => {
     //     localStorage.setItem("startValue", startValue.toString());
     // }, [startValue]);
@@ -30,18 +28,17 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
     //     localStorage.setItem("maxValue", maxValue.toString());
     // }, [maxValue]);
 
-
-    const onChangeHandlerStart = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandlerStart = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setStartValue(Number(event.currentTarget.value));
-    }
+    }, []);
 
-    const onChangeHandlerMax = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandlerMax = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(Number(event.currentTarget.value));
-    }
+    }, []);
 
-    const setBothValues = (start: number, max: number) => {
+    const setBothValues = useCallback((start: number, max: number) => {
         callBack(start, max);
-    }
+    }, [callBack]);
 
     return (
         <div className={s.main}>
@@ -57,4 +54,4 @@ export const SettingsDisplay = (props: SettingsDisplayPropsType) => {
             </div>
         </div>
     );
-};
+});
