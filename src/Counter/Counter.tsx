@@ -4,9 +4,9 @@ import {Button} from "../components/Button/Button"
 import {Display} from "../components/Display/Display";
 import {SettingsDisplay} from "../components/SettingsDisplay/SettingsDisplay";
 import {useDispatch, useSelector} from "react-redux";
-import {Dispatch} from "redux";
 import {
-    ActionType, getValueFromLocalStorageThunkCreator, incValue, incValuesThunkCreator,
+    getValueFromLocalStorageThunkCreator,
+    incValuesThunkCreator,
     selectAll,
     setCounterValue,
     setDisableForInc,
@@ -22,7 +22,7 @@ export const Counter = React.memo(() => {
 
     useEffect(() => {
         dispatch(getValueFromLocalStorageThunkCreator())
-    }, []);
+    }, [dispatch]);
 
 
 
